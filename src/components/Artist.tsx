@@ -6,7 +6,7 @@ const Artist: React.FC<ArtistProp> = ({ artist }) => {
   return (
     <div>
       <div>{artist.name}</div>
-      <div><a target='_blank' href={artist.website}>Visit website</a></div>
+      <div><a target='_blank' href={artist.website} rel="noopener noreferrer">Visit website</a></div>
     </div>
   );
 };
