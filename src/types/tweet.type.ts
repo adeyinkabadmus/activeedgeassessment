@@ -8,5 +8,11 @@ export type Tweet = {
 
 export type TweetProp = {
   classes: string;
-  tweet: Tweet
+  tweet: Tweet;
+	index: number;
+	id: number;
+	edit: (index: number, id: number, tweet: TweetEntity) => Promise<void>;
+	remove: (index: number, id: number) => Promise<void>;
 };
+
+export type TweetEntity = Omit<Tweet, "postId" | "it">;

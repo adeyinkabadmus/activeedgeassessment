@@ -2,7 +2,7 @@ import React from "react";
 import { Button, Card } from "flowbite-react";
 import { TweetProp } from "../types/tweet.type";
 
-const Tweet: React.FC<TweetProp> = ({ tweet, classes }) => {
+const Tweet: React.FC<TweetProp> = ({ tweet, classes, index, id, edit, remove }) => {
 	return (
 		<Card className={`${classes}`}>
 			<div className="flow-root">
@@ -21,8 +21,8 @@ const Tweet: React.FC<TweetProp> = ({ tweet, classes }) => {
 								</p>
 							</div>
 							<div className="mt-4 flex space-x-3 lg:mt-6">
-								<Button size="xs">Edit</Button>
-								<Button size="xs" color="failure">Delete</Button>
+								<Button size="xs" onClick={() => edit}>Edit</Button>
+								<Button size="xs" onClick={() => remove} color="failure">Delete</Button>
 							</div>
 						</div>
 					</li>
