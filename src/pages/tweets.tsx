@@ -39,7 +39,7 @@ const Tweets: React.FC = () => {
 	};
 
 	const remove = async (index: number, id: number) => {
-    console.log("INDEX" , index, id)
+    //console.log("INDEX" , index, id)
 		deleteOne(id)
 			// eslint-disable-next-line @typescript-eslint/no-unused-vars
 			.then((response) => {
