@@ -4,7 +4,6 @@ import Artist from "../components/Artist";
 import { getAlbums, getAll } from "../services/artist.service";
 import Popup from "../components/Popup";
 import Album from "../components/Album";
-//import { AlbumProp } from "../types/artist.type";
 
 const ArtistList: React.FC = () => {
 
@@ -18,7 +17,8 @@ const ArtistList: React.FC = () => {
     getAll().then(response => {
       setArtists(response.data);
     }).catch(error => {
-      setErrorState(error.response.msg);
+      //console.log(error)
+      setErrorState(error?.response?.data?.message);
     })
   }, []);
 
@@ -40,15 +40,11 @@ const ArtistList: React.FC = () => {
     setArtistData(null);
   }
 
-  // const renderArtist = (artist: ArtistType) => {
-  //   console.log(artist);
-  // };
-
   return (
     <div id="Artists">
       <h2 className="mt-10 mb-10 text-3xl text-center font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white">Chocolate city artists</h2>
       { error !== null ? <div>{error}</div> : "" }
-      <div className="grid grid-cols-4 gap-4">
+      <div className="grid grid-cols-5 gap-4">
         {artists.map((artist) => (
         <div key={artist.id}><Artist artist={artist} classes="" viewAlbums={() => fetchAlbums(artist)} /> </div>
         ))}
