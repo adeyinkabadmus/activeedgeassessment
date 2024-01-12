@@ -3,6 +3,7 @@ import { TweetEntity, TweetUploadProp } from "../types/tweet.type";
 import { Button, Label, TextInput, Textarea } from "flowbite-react";
 import { createOne, updateOne } from "../services/tweet.service";
 import { isEmpty, isValidEmail } from "../utils/validate.util";
+import _ from 'lodash';
 
 const DEFAULT_VALIDATOR_STATE = {
   name: {
@@ -31,7 +32,7 @@ const TweetUploadForm: React.FC<TweetUploadProp> = ({
 	const [body, setBody] = useState(tweet?.body);
   const [canSubmit, setCanSubmitState] = useState(false);
 
-  const [validators, setValidators] = useState({...DEFAULT_VALIDATOR_STATE});
+  const [validators, setValidators] = useState(_.cloneDeep(DEFAULT_VALIDATOR_STATE));
 
   useEffect(() => {
     const emailValid = isValidEmail(email);
@@ -39,7 +40,7 @@ const TweetUploadForm: React.FC<TweetUploadProp> = ({
     const bodyValid = !isEmpty(body);
     
     if (emailValid && nameValid && bodyValid) {
-      setValidators(DEFAULT_VALIDATOR_STATE);
+      setValidators(_.cloneDeep(DEFAULT_VALIDATOR_STATE));
       setCanSubmitState(true);
     } else {
       if (!emailValid) {
