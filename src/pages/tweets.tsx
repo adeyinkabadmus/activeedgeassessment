@@ -72,7 +72,7 @@ const Tweets: React.FC = () => {
 	};
 
   const showTweetForm = async (tweet: TweetUploadEntity) => {
-    console.log("TWEET ", tweet)
+    //console.log("TWEET ", tweet)
     setTweetEntity(tweet);
     setIsOpen(true);
   };
