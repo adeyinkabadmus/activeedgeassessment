@@ -99,7 +99,7 @@ const Tweets: React.FC = () => {
               index={index}
               id={tweet.it}
 							classes="mb-5"
-							edit={() => edit(index, tweet.it, tweet)}
+							edit={() => showTweetForm({ action: "Edit", tweet: tweet })}
               remove={remove}
 						/>
 					</div>
