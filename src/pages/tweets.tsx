@@ -1,13 +1,10 @@
 import React, { useLayoutEffect, useState } from "react";
 import Tweet from "../components/Tweet";
 import {
-	createOne,
 	deleteOne,
 	getAll,
-	updateOne,
 } from "../services/tweet.service";
 import {
-	TweetEntity,
 	Tweet as TweetType,
 	TweetUploadEntity,
 } from "../types/tweet.type";
@@ -36,20 +33,6 @@ const Tweets: React.FC = () => {
 			});
 	}, []);
 
-	const edit = async (index: number, id: number, payload: TweetEntity) => {
-		//alert("HERE")
-		updateOne(id, payload)
-			.then((response) => {
-				//set state for the edited tweet
-				const twts = tweets;
-				twts[index] = response.data;
-				setTweets(twts);
-			})
-			.catch((error) => {
-				setErrorState(error?.response?.data?.message);
-			});
-	};
-
 	const remove = async (index: number, id: number) => {
 		deleteOne(id)
 			// eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -64,26 +47,12 @@ const Tweets: React.FC = () => {
 			});
 	};
 
-	const create = async (body: TweetEntity) => {
-		createOne(body)
-			.then((response) => {
-				//push to list
-				const twts = tweets;
-				twts.push(response.data);
-				setTweets(twts);
-			})
-			.catch((error) => {
-				setErrorState(error?.response?.data?.message);
-			});
-	};
-
 	const showTweetForm = async (tweet: TweetUploadEntity) => {
 		setTweetEntity(tweet);
 		setIsOpen(true);
 	};
 
 	const showDeletePopup = async (tweet: TweetUploadEntity) => {
-    console.log("PRINT ENTITY ", tweet)
 		setTweetEntity(tweet);
 		setDeleteModalState(true);
 	};
@@ -108,6 +77,17 @@ const Tweets: React.FC = () => {
       }
     }
   };
+
+  const afterUpdate = (index: number, tweet: TweetType) => {
+    console.log("INDEX ", index, tweet)
+    if (typeof index === "number") {
+      tweets[index] = tweet;
+      setTweets(tweets);
+    } else {
+      tweets.unshift(tweet);
+      setTweets(tweets);
+    }
+  }   
 
 	return (
 		<div id="Tweets">
@@ -146,7 +126,7 @@ const Tweets: React.FC = () => {
 						state={isOpen}
 						onClose={closeModal}
 						title={`${tweetEntity?.action} tweet`}
-						content={<TweetUploadForm classes="" tweet={tweetEntity?.tweet} />}
+						content={<TweetUploadForm classes="" tweet={tweetEntity?.tweet} id={tweetEntity?.id} index={tweetEntity?.index} afterSubmit={() => afterUpdate } />}
 					/>
 				)}
 

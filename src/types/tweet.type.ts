@@ -15,7 +15,7 @@ export type TweetProp = {
 	remove: (data: TweetUploadEntity) => Promise<void>;
 };
 
-export type TweetEntity = Omit<Tweet, "postId" | "it">;
+export type TweetEntity = Omit<Tweet, "postId" | "id">;
 
 export type TweetUploadEntity = {
 	tweet: TweetEntity;
@@ -27,4 +27,7 @@ export type TweetUploadEntity = {
 export type TweetUploadProp = {
 	tweet?: TweetEntity;
 	classes: string;
+	index?: number;
+	id?: number;
+	afterSubmit: (index: number | null, tweet: Tweet) => void
 };
