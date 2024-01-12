@@ -6,12 +6,16 @@ import {
 	getAll,
 	updateOne,
 } from "../services/tweet.service";
-import { TweetEntity, Tweet as TweetType } from "../types/tweet.type";
+import { TweetEntity, Tweet as TweetType, TweetUploadEntity } from "../types/tweet.type";
 import { Button } from "flowbite-react";
+import Popup from "../components/Popup";
+import TweetUploadForm from "../components/TweetUpload";
 
 const Tweets: React.FC = () => {
 	const [tweets, setTweets] = useState<Array<TweetType>>([]);
 	const [error, setErrorState] = useState<string | null>(null);
+  const [tweetEntity, setTweetEntity] = useState<TweetUploadEntity | null>(null);
+  const [isOpen, setIsOpen] = useState(false);
 
 	useLayoutEffect(() => {
 		getAll()
@@ -67,13 +71,24 @@ const Tweets: React.FC = () => {
 			});
 	};
 
+  const showTweetForm = async (tweet: TweetUploadEntity) => {
+    console.log("TWEET ", tweet)
+    setTweetEntity(tweet);
+    setIsOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsOpen(false);
+    setTweetEntity(null);
+  }
+
 	return (
 		<div id="Tweets">
 			<h2 className="mt-10 mb-10 text-3xl text-center font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
 				Tweets
 			</h2>
       <div className="grid justify-items-end mb-3">
-        <Button size="md">New tweet</Button>
+        <Button size="md" onClick={() => showTweetForm({action: "New", tweet:{ name: '', email: '', body: ''}})}>New tweet</Button>
       </div>
 			{error !== null ? <div>{error}</div> : ""}
 			<div className="grid lg:grid-cols-2 sm:grid-cols-1 md:grid-cols-1 gap-4">
@@ -89,6 +104,9 @@ const Tweets: React.FC = () => {
 						/>
 					</div>
 				))}
+        {isOpen && (
+         <Popup state={isOpen} onClose={closeModal} title={`${tweetEntity?.action} tweet`} content={<TweetUploadForm classes="" tweet={tweetEntity?.tweet} />} />
+      )}
 			</div>
 		</div>
 	);

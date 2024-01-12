@@ -21,8 +21,8 @@ const Tweet: React.FC<TweetProp> = ({ tweet, classes, index, id, edit, remove })
 								</p>
 							</div>
 							<div className="mt-4 flex space-x-3 lg:mt-6">
-								<Button size="xs" onClick={() => edit}>Edit</Button>
-								<Button size="xs" onClick={() => remove} color="failure">Delete</Button>
+								<Button size="xs" onClick={() => edit(index, id, tweet)}>Edit</Button>
+								<Button size="xs" onClick={() => remove(index, id)} color="failure">Delete</Button>
 							</div>
 						</div>
 					</li>
