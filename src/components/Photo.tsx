@@ -13,10 +13,9 @@ const Photo: React.FC<PhotoProp> = ({ photo, classes }) => {
                 <img src={photo.thumbnailUrl} height={100} width={100} />
               </div>
               <div className="min-w-0 flex-1">
-                <p className="truncate text-sm font-medium text-gray-900 dark:text-white">Title</p>
-                <p className="truncate text-sm text-gray-500 dark:text-gray-400">{photo.title}</p>
+                <p className="text-sm font-medium text-gray-900 dark:text-white">Title</p>
+                <p className="text-sm text-gray-500 dark:text-gray-400">{photo.title}</p>
               </div>
-              {/* <div className="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white"><Link to={`/albums/${album.id}/photos`}><Button href={`/albums/${album.id}/photos`} size="xs">See photos {`/albums/${album.id}/photos`}</Button></Link></div> */}
             </div>
           </li>
         </ul>
