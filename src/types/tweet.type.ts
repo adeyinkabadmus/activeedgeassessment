@@ -8,5 +8,5 @@ export type Tweet = {
 
 export type TweetProp = {
   classes: string;
-  photo: Tweet
+  tweet: Tweet
 };

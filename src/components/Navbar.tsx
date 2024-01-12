@@ -10,12 +10,14 @@ const TopNav: React.FC = () => {
       </Navbar.Brand>
       <Navbar.Toggle />
       <Navbar.Collapse>
-        <Navbar.Link href="/" active>
+        {/* <Navbar.Link href="/" active>
           Home
-        </Navbar.Link>
-        <Navbar.Link as={Link} href="/tweets">
+        </Navbar.Link> */}
+        <Link to="/">Home</Link>
+        <Link to="/tweets">Tweets</Link>
+        {/* <Navbar.Link as={Link} href="/tweets">
           Tweets
-        </Navbar.Link>
+        </Navbar.Link> */}
       </Navbar.Collapse>
     </Navbar>
   );
