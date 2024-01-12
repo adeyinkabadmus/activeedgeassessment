@@ -1,12 +1,18 @@
 import React, { useLayoutEffect, useState } from "react";
-import { Artist as ArtistType } from "../types/artist.type";
+import { Artist as ArtistType, AlbumProp } from "../types/artist.type";
 import Artist from "../components/Artist";
-import { getAll } from "../services/artist.service";
+import { getAlbums, getAll } from "../services/artist.service";
+import Popup from "../components/Popup";
+import Album from "../components/Album";
+//import { AlbumProp } from "../types/artist.type";
 
 const ArtistList: React.FC = () => {
 
   const [artists, setArtists] = useState<Array<ArtistType>>([]);
   const [error, setErrorState] = useState<string | null>(null);
+
+  const [isOpen, setIsOpen] = useState(false);
+  const [artistData, setArtistData] = useState<AlbumProp | null>(null);
 
   useLayoutEffect(() => {
     getAll().then(response => {
@@ -15,6 +21,24 @@ const ArtistList: React.FC = () => {
       setErrorState(error.response.msg);
     })
   }, []);
+
+  const fetchAlbums = async (artist: ArtistType) => {
+    getAlbums(artist.id).then(response => {
+      setArtistData({
+        artist, 
+        albums: response.data,
+        classes: "" 
+      });
+      setIsOpen(true);
+    }).catch(error => {
+      console.log("Error getting albums for artist", error);
+    })
+  }
+
+  const closeModal = () => {
+    setIsOpen(false);
+    setArtistData(null);
+  }
 
   // const renderArtist = (artist: ArtistType) => {
   //   console.log(artist);
@@ -26,9 +50,11 @@ const ArtistList: React.FC = () => {
       { error !== null ? <div>{error}</div> : "" }
       <div className="grid grid-cols-4 gap-4">
         {artists.map((artist) => (
-        <div key={artist.id}><Artist artist={artist} classes="" /> </div>
-        //  onArtistClick={() => renderArtist(artist)}
+        <div key={artist.id}><Artist artist={artist} classes="" viewAlbums={() => fetchAlbums(artist)} /> </div>
         ))}
+        {isOpen && (
+         <Popup state={isOpen} onClose={closeModal} title={`${artistData?.artist?.name}'s ablums`} content={artistData?.albums.map(album => <Album key={album.id} album={album} classes="" /> ) } />
+      )}
       </div>
       
     </div>

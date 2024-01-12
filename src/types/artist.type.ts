@@ -1,3 +1,4 @@
+import { Album } from "./album.type";
 import { Address } from "./location.type"
 
 export type Artist = {
@@ -17,5 +18,12 @@ export type Artist = {
 
 export type ArtistProp = {
   artist: Artist;
+  classes: string;
+  viewAlbums: (id: number) => Promise<void>;
+};
+
+export type AlbumProp = {
+  artist: Artist;
+  albums: Array<Album>;
   classes: string;
 };
