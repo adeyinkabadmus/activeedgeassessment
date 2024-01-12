@@ -22,12 +22,15 @@ const ArtistList: React.FC = () => {
 
   return (
     <div id="Artists">
-      <div>Artists</div>
+      <h2 className="mt-10 mb-10 text-3xl text-center font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white">Chocolate city artists</h2>
       { error !== null ? <div>{error}</div> : "" }
-      {artists.map((artist) => (
-        <div><Artist key={artist.id} artist={artist} /> </div>
+      <div className="grid grid-cols-4 gap-4">
+        {artists.map((artist) => (
+        <div key={artist.id}><Artist artist={artist} classes="" /> </div>
         //  onArtistClick={() => renderArtist(artist)}
         ))}
+      </div>
+      
     </div>
   );
 };

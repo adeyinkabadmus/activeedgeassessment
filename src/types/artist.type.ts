@@ -17,4 +17,5 @@ export type Artist = {
 
 export type ArtistProp = {
   artist: Artist;
+  classes: string;
 };
