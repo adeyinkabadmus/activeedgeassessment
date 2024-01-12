@@ -4,7 +4,7 @@ import Navbar from "./Navbar";
 
 const Layout: React.FC = () => {
 	return (
-		<div id="Layout">
+		<div id="Layout" className="container mx-auto">
 			<div>
 				<Navbar />
 			</div>
