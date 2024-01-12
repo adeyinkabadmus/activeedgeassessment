@@ -1,6 +1,6 @@
 export type Tweet = {
 	postId: number;
-	it: number;
+	id: number;
 	name: string;
 	email: string;
 	body: string;
@@ -11,15 +11,17 @@ export type TweetProp = {
   tweet: Tweet;
 	index: number;
 	id: number;
-	edit: (index: number, id: number, tweet: TweetEntity) => Promise<void>;
-	remove: (index: number, id: number) => Promise<void>;
+	edit: (data: TweetUploadEntity) => Promise<void>;
+	remove: (data: TweetUploadEntity) => Promise<void>;
 };
 
 export type TweetEntity = Omit<Tweet, "postId" | "it">;
 
 export type TweetUploadEntity = {
-	tweet: TweetEntity,
-	action: string
+	tweet: TweetEntity;
+	action: string;
+	index?: number;
+	id?: number;
 };
 
 export type TweetUploadProp = {

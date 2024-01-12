@@ -18,9 +18,6 @@ const Album: React.FC<AlbumProp> = ({ album, classes }) => {
 								<p className="text-sm text-gray-500 dark:text-gray-400">
 									{album.title}
 								</p>
-								<p className="text-sm text-gray-500 dark:text-gray-400">
-									{album.title}
-								</p>
 							</div>
 							<div className="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
                 <Button size="xs"><Link to={`albums/${album.id}/photos`}>See photos</Link></Button>
