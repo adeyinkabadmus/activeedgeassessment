@@ -7,6 +7,7 @@ import {
 	updateOne,
 } from "../services/tweet.service";
 import { TweetEntity, Tweet as TweetType } from "../types/tweet.type";
+import { Button } from "flowbite-react";
 
 const Tweets: React.FC = () => {
 	const [tweets, setTweets] = useState<Array<TweetType>>([]);
@@ -71,8 +72,11 @@ const Tweets: React.FC = () => {
 			<h2 className="mt-10 mb-10 text-3xl text-center font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
 				Tweets
 			</h2>
+      <div className="grid justify-items-end mb-3">
+        <Button size="md">New tweet</Button>
+      </div>
 			{error !== null ? <div>{error}</div> : ""}
-			<div className="grid grid-cols-2 gap-4">
+			<div className="grid lg:grid-cols-2 sm:grid-cols-1 md:grid-cols-1 gap-4">
 				{tweets.map((tweet, index) => (
 					<div key={index}>
 						<Tweet
