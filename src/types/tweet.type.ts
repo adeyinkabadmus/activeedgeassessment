@@ -16,3 +16,13 @@ export type TweetProp = {
 };
 
 export type TweetEntity = Omit<Tweet, "postId" | "it">;
+
+export type TweetUploadEntity = {
+	tweet: TweetEntity,
+	action: string
+};
+
+export type TweetUploadProp = {
+	tweet?: TweetEntity;
+	classes: string;
+};
