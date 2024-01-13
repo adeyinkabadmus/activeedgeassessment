@@ -70,7 +70,7 @@ const TweetUploadForm: React.FC<TweetUploadProp> = ({
 	};
 
 	const create = async () => {
-		if (name && email && body && typeof id === "number") {
+		if (name && email && body) {
 			const payload: TweetEntity = {
 				name,
 				email,
@@ -79,6 +79,7 @@ const TweetUploadForm: React.FC<TweetUploadProp> = ({
 			createOne(payload)
 				.then((response) => {
 					//push to list
+          console.log("RESPONSE DATA ", response.data)
           afterSubmit(null, response.data);
 				})
 				.catch((error) => {
@@ -97,7 +98,7 @@ const TweetUploadForm: React.FC<TweetUploadProp> = ({
 			updateOne(id, payload)
 				.then((response) => {
 					//set state for the edited tweet
-          afterSubmit(id, response.data);
+          afterSubmit(index, response.data);
 				})
 				.catch((error) => {
 					//setErrorState(error?.response?.data?.message);

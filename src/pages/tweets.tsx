@@ -48,6 +48,7 @@ const Tweets: React.FC = () => {
 	};
 
 	const showTweetForm = async (tweet: TweetUploadEntity) => {
+    console.log("INDD ", tweet)
 		setTweetEntity(tweet);
 		setIsOpen(true);
 	};
@@ -71,21 +72,23 @@ const Tweets: React.FC = () => {
     if (state === false) {
       closeDeleteTweetModal();
     } else {
-      console.log("TTWEET ", tweetEntity)
       if (typeof tweetEntity?.index === "number" && typeof tweetEntity.id === "number") {
         remove(tweetEntity?.index, tweetEntity.id);
       }
     }
   };
 
-  const afterUpdate = (index: number, tweet: TweetType) => {
-    console.log("INDEX ", index, tweet)
+  const afterUpdate = (index: number | null, tweet: TweetType) => {
     if (typeof index === "number") {
-      tweets[index] = tweet;
-      setTweets(tweets);
+      const twts = [...tweets];
+      twts[index] = { ...tweet };
+      setTweets(twts);
+      closeModal();
     } else {
-      tweets.unshift(tweet);
-      setTweets(tweets);
+      const twts = [...tweets];
+      twts.unshift(tweet);
+      setTweets(twts);
+      closeModal();
     }
   }   
 
@@ -116,7 +119,7 @@ const Tweets: React.FC = () => {
 							index={index}
 							id={tweet.id}
 							classes="mb-5"
-							edit={() => showTweetForm({ action: "Edit", tweet: tweet, id: tweet.id })}
+							edit={() => showTweetForm({ action: "Edit", tweet: tweet, id: tweet.id, index })}
 							remove={() => showDeletePopup({ action: "Delete", tweet, index, id: tweet.id })}
 						/>
 					</div>
@@ -126,7 +129,7 @@ const Tweets: React.FC = () => {
 						state={isOpen}
 						onClose={closeModal}
 						title={`${tweetEntity?.action} tweet`}
-						content={<TweetUploadForm classes="" tweet={tweetEntity?.tweet} id={tweetEntity?.id} index={tweetEntity?.index} afterSubmit={() => afterUpdate } />}
+						content={<TweetUploadForm classes="" tweet={tweetEntity?.tweet} id={tweetEntity?.id} index={tweetEntity?.index} afterSubmit={afterUpdate} />}
 					/>
 				)}
 
